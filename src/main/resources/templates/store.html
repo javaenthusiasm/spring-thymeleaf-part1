@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" lang="en">
+ 
+<head>
+<title>Products list</title>
+<script src="http://code.jquery.com/jquery-2.1.4.js" th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.0/js/materialize.min.js"
+	th:src="@{/webjars/materializecss/0.96.0/js/materialize.min.js}"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.0/css/materialize.min.css"
+	th:href="@{/webjars/materializecss/0.96.0/css/materialize.min.css}" rel="stylesheet" />
+</head>
+ 
+<body>
+	<form id="products_form"
+		  action="#" th:action="@{/products}"
+		  th:object="${store}"
+		  method="post" th:method="POST"
+		   >
+		   <h5 class="center"> Product store items </h5>
+	 <table class="striped centered">
+        <thead>
+          <tr>
+              <th data-field="id"> Name </th>
+              <th data-field="name">Description </th>
+              <th data-field="price">Price </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="product, productStat : *{products}">
+            <td> <input type="text" th:field="*{products[__${productStat.index}__].name}" /> </td>
+            <td> <input type="text" th:field="*{products[__${productStat.index}__].description}" /> </td>
+            <td> <input type="text" th:field="*{products[__${productStat.index}__].price}" /> </td>
+            <td><button type="submit" name="deleteProduct" class="btn-floating btn-small waves-effect waves-light" 
+                th:value="${productStat.index}" > <i class="mdi-content-remove"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class=" btn waves-effect waves-light" type="submit" name="addProduct" >Add product</button>
+      </form>
+</body>
+</html>
